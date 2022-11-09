@@ -56,7 +56,18 @@ model Camp {
   price Float
   review String
   image String
+  authorId String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  reviews Reviews[]
+}
+
+model Reviews{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  comment String
+  campId String
+  camp Camp  @relation(fields: [campId],references: [id])
+  userId    String
+  username String
 }
 
