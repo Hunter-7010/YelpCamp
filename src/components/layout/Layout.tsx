@@ -5,9 +5,9 @@ type LayoutProps = {
 
 const LayOut = (props:LayoutProps)=> {
     return (
-    <div>
+    <div className="font-serif bg-gray-100">
         <NavBar/>
-        <main>
+        <main >
             {props.children ? props.children : null}
         </main>   
     </div>

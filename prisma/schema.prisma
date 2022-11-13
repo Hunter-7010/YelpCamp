@@ -54,9 +54,10 @@ model Camp {
   name String
   address String
   price Float
-  review String
+  review Int
   image String
-  authorId String?
+  authorId String
+  authorName String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   reviews Reviews[]

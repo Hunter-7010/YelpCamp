@@ -8,10 +8,12 @@ import { trpc } from "../../utils/trpc";
 const NewCamp: NextPage = () => {
   const nameRef = useRef<HTMLInputElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
+  const reviewRef = useRef<HTMLSelectElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const ctx = trpc.useContext()
   const {mutate} = trpc.campground.addCamp.useMutation({
+    
     onSuccess:()=>{
       ctx.invalidate()
       router.push('/campgrounds')
@@ -25,12 +27,14 @@ const NewCamp: NextPage = () => {
     const enteredAddress = addressRef.current? addressRef.current.value : null; 
     const enteredPrice = priceRef.current ? priceRef.current.value : null;
     const enteredImage = imageRef.current ? imageRef.current.value : null;
+    const enteredReview = reviewRef.current ? reviewRef.current.value : null
 
     const campData = {
       name: enteredName as string,
       address: enteredAddress as string,
       price: enteredPrice ? +enteredPrice:enteredPrice,
       image: enteredImage as string,
+      review: +enteredReview!
     };
     console.log(campData);
     
@@ -39,8 +43,8 @@ const NewCamp: NextPage = () => {
     
   };
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-gray-300">
-      <form className="flex h-2/3 w-2/3 flex-col items-center justify-center border bg-gray-100" onSubmit={onSubmitHandler}>
+    <div className="flex h-screen flex-col items-center justify-center">
+      <form className="flex  w-2/3 flex-col items-center justify-center bg-gray-100" onSubmit={onSubmitHandler}>
         <h1 className="mb-6 text-3xl font-bold text-gray-800">
           Add a new Campground
         </h1>
@@ -72,6 +76,16 @@ const NewCamp: NextPage = () => {
           className="h-12 w-1/2 rounded-md border-2 p-4"
           ref={priceRef}
         />
+         <label htmlFor="review" className="mb-2 flex w-1/2">
+          Review:
+        </label>
+        <select name="" id="review" className="w-1/2 border-2 rounded-md p-4 static" ref={reviewRef}>
+          <option defaultValue="1">1</option>
+          <option defaultValue="2">2</option>
+          <option defaultValue="3" selected>3</option>
+          <option defaultValue="4">4</option>
+          <option defaultValue="5">5</option>
+        </select>
         <label htmlFor="image" className="mb-2 flex w-1/2">
           Image:
         </label>
@@ -81,7 +95,7 @@ const NewCamp: NextPage = () => {
           className="h-12 w-1/2 rounded-md border-2 p-4"
           ref={imageRef}
         />
-        <button className="mt-4 h-16 rounded-3xl bg-sky-500 px-6 text-sky-900 duration-500 hover:scale-110">
+        <button className="mt-4 h-16 w-64 text-lg rounded-3xl bg-sky-500 px-6 text-sky-900 duration-500 hover:scale-110">
           Add CampGround
         </button>
       

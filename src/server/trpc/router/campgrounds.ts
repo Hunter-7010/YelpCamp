@@ -1,7 +1,6 @@
 import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { z } from "zod";
 
-
 export const campgroundRouter = router({
   getById: publicProcedure
     .input(z.object({ id: z.string() }))
@@ -17,7 +16,13 @@ export const campgroundRouter = router({
       };
     }),
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.camp.findMany();
+    return ctx.prisma.camp.findMany({
+      orderBy: [
+        {
+          createdAt: 'desc',
+        }
+      ],
+    });
   }),
   addCamp: protectedProcedure
     .input(
@@ -26,6 +31,7 @@ export const campgroundRouter = router({
         address: z.any(),
         price: z.any(),
         image: z.any(),
+        review: z.any(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -34,9 +40,10 @@ export const campgroundRouter = router({
           name: input.name,
           address: input.address,
           price: input.price,
-          review: "0",
+          review: input.review,
           image: input.image,
           authorId: ctx.session.user.id,
+          authorName: ctx.session.user.name!
         },
       });
     }),
@@ -68,6 +75,7 @@ export const campgroundRouter = router({
         address: z.any(),
         price: z.any(),
         image: z.any(),
+        review: z.any(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -85,7 +93,7 @@ export const campgroundRouter = router({
             name: input.name,
             address: input.address,
             price: input.price,
-            review: "0",
+            review: input.review,
             image: input.image,
           },
         });
