@@ -1,46 +1,34 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Fragment, useState, useMemo } from "react";
 import { useRouter } from "next/router";
 import { trpc } from "../../utils/trpc";
 import DropDown from "../../components/dropDown";
 
-export type CampTypes = {
-  id: number;
-  name: string;
-  price: number;
-  review: number;
-  image: string;
-  address: string;
-}[];
-
 const Campgrounds: NextPage = () => {
-const router = useRouter()
+  const router = useRouter();
 
-  const {data:campgroundData} = trpc.campground.getAll.useQuery(undefined,{
-    refetchOnWindowFocus:false,
-    onSuccess: ()=> {
-    
-    }
+  const { data: campgroundData } = trpc.campground.getAll.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+    onSuccess: () => {},
   });
-  
-  const campgrounds= campgroundData
 
-  const [searchTerm, setSearchTerms] = useState("")
- 
-  const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=>{
-    setSearchTerms(e.currentTarget.value)
+  const campgrounds = campgroundData;
 
-  }
-  const onSearchHandler =(e:React.MouseEvent<HTMLElement> |null):void=> {
-    router.push(`/campgrounds/q/${searchTerm.toLowerCase()}`)
-  }
-  const handleKeyDown = (e:React.KeyboardEvent<HTMLElement>)=>{
-    if(e.key ==='Enter'){
-      onSearchHandler(null)
+  const [searchTerm, setSearchTerms] = useState("");
+
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerms(e.currentTarget.value);
+  };
+  const onSearchHandler = (e: React.MouseEvent<HTMLElement> | null): void => {
+    router.push(`/campgrounds/q/${searchTerm.toLowerCase()}`);
+  };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === "Enter") {
+      onSearchHandler(null);
     }
-  }
-    
+  };
+
   return (
     <div className="flex flex-col items-center md:h-full">
       <div
@@ -55,17 +43,26 @@ const router = useRouter()
         </div>
       </div>
       <div className="flex h-12 w-full items-center justify-between bg-white shadow-lg">
-        <DropDown/>
+        <DropDown />
         <div className="mr-52 flex">
-          <input type="text" name="" id="" className="border pl-2 shadow-md" placeholder="Search Campground" onChange={onChangeHandler} onKeyDown={handleKeyDown}/>
-          <a className="w-8 bg-sky-400 flex justify-center items-center cursor-pointer shadow-md" onClick={onSearchHandler}>
-            
+          <input
+            type="text"
+            name=""
+            id=""
+            className="border pl-2 shadow-md"
+            placeholder="Search Campground"
+            onChange={onChangeHandler}
+            onKeyDown={handleKeyDown}
+          />
+          <a
+            className="flex w-8 cursor-pointer items-center justify-center bg-sky-400 shadow-md"
+            onClick={onSearchHandler}
+          >
             <svg
-            className="text-gray-200 "
+              className="text-gray-200 "
               width="21"
               viewBox="0 0 24 24"
               fill="none"
-           
               xmlns="http://www.w3.org/2000/svg"
             >
               {" "}
@@ -74,30 +71,23 @@ const router = useRouter()
                 cy="11.7666"
                 r="8.98856"
                 stroke="currentColor"
-         
-         
-        
               ></circle>{" "}
               <path
                 d="M18.0186 18.4851L21.5426 22"
                 stroke="currentColor"
-         
-         
-        
               ></path>{" "}
             </svg>
           </a>
         </div>
       </div>
-      {/* <Link href="/campgrounds/new">
+       <Link href="/campgrounds/new">
         <span className="mt-2 flex items-center justify-center rounded-3xl bg-sky-400 p-4 text-sky-900 duration-300 hover:scale-110 hover:cursor-pointer">
           Add a new campground
         </span>
-      </Link> */}
-
+      </Link> 
       <div className="mt-4  w-full sm:flex sm:flex-wrap ">
         {campgrounds ? (
-          campgrounds.map((camp:any) => (
+          campgrounds.map((camp: any) => (
             <Link href={`/campgrounds/${camp.id}`} key={camp.id}>
               <div className="flex md:w-1/3" key={camp.id}>
                 <div className="m-2 flex w-full flex-col items-center justify-center duration-300 hover:scale-110 hover:bg-slate-400">
@@ -112,22 +102,39 @@ const router = useRouter()
                     className="-pt-2"
                   />
                   <div>
-                  <p className="pt-4 text-blue-600 select-none">{camp.name}</p>
+                    <p className="select-none pt-4 text-blue-600">
+                      {camp.name}
+                    </p>
                   </div>
                 </div>
               </div>
             </Link>
           ))
         ) : (
-          <div role="status" className="h-screen w-screen flex justify-center items-center">
-          <svg aria-hidden="true" className="mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-              <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-          </svg>
-          <span className="sr-only">Loading...</span>
-      </div>
+          <div
+            role="status"
+            className="flex h-screen w-screen items-center justify-center"
+          >
+            <svg
+              aria-hidden="true"
+              className="mr-2 h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
+              viewBox="0 0 100 101"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                fill="currentColor"
+              />
+              <path
+                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                fill="currentFill"
+              />
+            </svg>
+            <span className="sr-only">Loading...</span>
+          </div>
         )}
-      </div>
+      </div> 
     </div>
   );
 };

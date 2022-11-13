@@ -52,13 +52,13 @@ const Show: NextPage = () => {
     if (commentRef.current) {
       commentRef.current.value = "";
     }
-    console.log("comment:", reviewData);
+
   };
 
   const deleteReviewHandler = (e: React.MouseEvent<HTMLElement>): void => {
     const reviewId = { reviewId: e.currentTarget.id };
     deleteReview.mutate(reviewId);
-    console.log("pressed a tag", e.currentTarget.id);
+    
   };
 
   return (

@@ -8,7 +8,7 @@ import DropDown from "../../../components/dropDown";
 const SortedCampgrounds: NextPage = () => {
 const router = useRouter()
 const param = router.query.by as string
-console.log(param)
+
   const {data:campgroundData} = trpc.searchCampground.sort.useQuery({by:param},{
     refetchOnWindowFocus:false,
     onSuccess: ()=> {

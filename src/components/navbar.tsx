@@ -7,38 +7,60 @@ const NavBar: React.FC = () => {
   const router = useRouter();
   
   return (
-    <header className="relative flex h-20 w-screen items-center justify-between bg-gradient-to-tl from-sky-500 to-indigo-500 font-sans flex-wrap">
-      <div className="space-x-4 ml-32">
+    <header className="relative flex h-20 w-screen flex-wrap items-center justify-between bg-gradient-to-tl from-sky-500 to-indigo-500 font-sans">
+      <div className="ml-32 space-x-4">
         <Link href="/">
-      <a className="ml-2 text-3xl font-bold text-white hover:cursor-pointer">YelpCamp</a>
+          <a className="ml-2 text-3xl font-bold text-white hover:cursor-pointer">
+            YelpCamp
+          </a>
         </Link>
+
         <Link href="/campgrounds">
-          <span className={`text-md  hover:cursor-pointer  hover:text-white ${router.route==="/campgrounds" ? "text-white":"text-gray-400"}`}>
+          <span
+            className={`text-md  hover:cursor-pointer  hover:text-gray-400 ${
+              router.route === "/campgrounds" ? "text-gray-400" : "text-white" 
+            }`}
+          >
             Campgrounds
           </span>
         </Link>
-        {sessionData?.user ? ( <Link href="/campgrounds/new">
-          <span className={`text-md hover:cursor-pointer hover:text-white ${router.route==="/campgrounds/new" ? "text-white":"text-gray-400"}`}>
-            New
-          </span>
-        </Link>):null}
-      
+
+        <a
+        href="/campgrounds/infinite"
+          className={`text-md  hover:cursor-pointer  hover:text-gray-400 text-white`}
+        >
+          Infinite camps
+        </a>
+
+        {sessionData?.user ? (
+          <Link href="/campgrounds/new">
+            <span
+              className={`text-md hover:cursor-pointer hover:text-white ${
+                router.route === "/campgrounds/new"
+                  ? "text-white"
+                  : "text-gray-400"
+              }`}
+            >
+              New
+            </span>
+          </Link>
+        ) : null}
       </div>
       {sessionData?.user ? (
-       
         <div className="mr-32 space-x-2">
-          <span className="text-white mx-2 text-md uppercase select-none">{sessionData?.user?.name}</span>
+          <span className="text-md mx-2 select-none uppercase text-white">
+            {sessionData?.user?.name}
+          </span>
           <button
-            className="text-gray-300 text-lg font-bold hover:text-white"
+            className="text-lg font-bold text-gray-300 hover:text-white"
             onClick={() => signOut()}
           >
-           Sign out
+            Sign out
           </button>
         </div>
-   
       ) : (
         <button
-          className="text-white text-lg font-bold hover:text-gray-400 mr-32"
+          className="mr-32 text-lg font-bold text-white hover:text-gray-400"
           onClick={() => signIn("google")}
         >
           Sign in

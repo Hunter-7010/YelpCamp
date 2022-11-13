@@ -37,7 +37,7 @@ const Edit: NextPage = () => {
       image: enteredImage as string,
       review: +enteredReview!
     };
-    console.log(campData);
+   
     mutate(campData)
   };
   const campground = trpc.campground.getById.useQuery({

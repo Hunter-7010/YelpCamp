@@ -15,14 +15,35 @@ export const campgroundRouter = router({
         campground: campground,
       };
     }),
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.camp.findMany({
+  getAll: publicProcedure.query(async({ ctx }) => {
+    return await ctx.prisma.camp.findMany({
+      take:40,
       orderBy: [
         {
           createdAt: 'desc',
         }
       ],
     });
+  }),
+  testAll: publicProcedure
+  .input(z.object({
+    cursor: z.number().min(0).default(0),// <-- "cursor" needs to exist, but can be any type
+    skip: z.number()
+  }))
+  .query(async({ input,ctx }) => {
+    const limit = 2;
+    const { cursor,skip } = input;
+
+    const camp = await ctx.prisma.camp.findMany({
+      take: limit , 
+      
+     skip: limit*cursor
+    });
+   
+ 
+    return {
+      camp,
+    };
   }),
   addCamp: protectedProcedure
     .input(

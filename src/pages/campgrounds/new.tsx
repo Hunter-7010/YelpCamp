@@ -36,7 +36,7 @@ const NewCamp: NextPage = () => {
       image: enteredImage as string,
       review: +enteredReview!
     };
-    console.log(campData);
+    
     
    mutate(campData)
  
