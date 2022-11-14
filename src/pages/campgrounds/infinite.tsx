@@ -127,6 +127,7 @@ const Infinite: NextPage = () => {
       <div>
         <button
           onClick={() => {
+            //@ts-ignore
             skip = data?.pageParams.length;
             return fetchNextPage();
           }}
