@@ -127,7 +127,7 @@ const Infinite: NextPage = () => {
       <div>
         <button
           onClick={() => {
-            skip = data?.pageParams.length! ?? 0;
+            skip = data?.pageParams.length ?? 0;
             return fetchNextPage();
           }}
           disabled={!hasNextPage || isFetchingNextPage}
