@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { trpc } from "../utils/trpc";
+
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 const NavBar: React.FC = () => {
@@ -38,13 +38,14 @@ const NavBar: React.FC = () => {
             </span>
           </Link>
         ) : null}
-
+<Link href="/">
         <a
           href="/campgrounds/infinite"
           className={`text-sm  text-white  hover:cursor-pointer hover:text-gray-400`}
         >
           &#9888;Infinite camps&#9888;
         </a>
+</Link>
       </div>
       {sessionData?.user ? (
         <div className="mr-32 space-x-2">

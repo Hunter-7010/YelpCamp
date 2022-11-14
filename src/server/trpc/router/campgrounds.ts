@@ -32,7 +32,7 @@ export const campgroundRouter = router({
   }))
   .query(async({ input,ctx }) => {
     const limit = 2;
-    const { cursor,skip } = input;
+    const { cursor } = input;
 
     const camp = await ctx.prisma.camp.findMany({
       take: limit , 

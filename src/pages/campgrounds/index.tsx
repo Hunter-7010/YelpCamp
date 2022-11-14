@@ -1,16 +1,16 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { ChangeEvent, Fragment, useState, useMemo } from "react";
+import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { trpc } from "../../utils/trpc";
 import DropDown from "../../components/dropDown";
+import Image from "next/image";
 
 const Campgrounds: NextPage = () => {
   const router = useRouter();
 
   const { data: campgroundData } = trpc.campground.getAll.useQuery(undefined, {
     refetchOnWindowFocus: false,
-    onSuccess: () => {},
   });
 
   const campgrounds = campgroundData;
@@ -91,7 +91,7 @@ const Campgrounds: NextPage = () => {
             <Link href={`/campgrounds/${camp.id}`} key={camp.id}>
               <div className="flex md:w-1/3" key={camp.id}>
                 <div className="m-2 flex w-full flex-col items-center justify-center duration-300 hover:scale-110 hover:bg-slate-400">
-                  <img
+                  <Image
                     src={camp.image}
                     onError={({ currentTarget }) => {
                       currentTarget.onerror = null; // prevents looping
