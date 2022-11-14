@@ -80,11 +80,7 @@ const Campgrounds: NextPage = () => {
           </a>
         </div>
       </div>
-       <Link href="/campgrounds/new">
-        <span className="mt-2 flex items-center justify-center rounded-3xl bg-sky-400 p-4 text-sky-900 duration-300 hover:scale-110 hover:cursor-pointer">
-          Add a new campground
-        </span>
-      </Link> 
+    
       <div className="mt-4  w-full sm:flex sm:flex-wrap ">
         {campgrounds ? (
           campgrounds.map((camp: any) => (
