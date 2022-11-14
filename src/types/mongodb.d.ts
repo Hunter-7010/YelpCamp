@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb'
 
 declare global {
-  let _mongoClientPromise: Promise<MongoClient>
+  var _mongoClientPromise: Promise<MongoClient>
 }
