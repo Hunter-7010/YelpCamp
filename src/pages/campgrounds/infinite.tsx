@@ -15,7 +15,7 @@ const Infinite: NextPage = () => {
       },
       {
         refetchOnWindowFocus: false,
-        getNextPageParam: (lastPage: any, allPages) => {
+        getNextPageParam: (lastPage: any) => {
       
           
           lastPage.skip = skip;
@@ -95,7 +95,7 @@ const Infinite: NextPage = () => {
       </div>
 
       <div className="mt-4  w-full sm:flex sm:flex-wrap ">
-        {data?.pages.map((group, i) => (
+        {data?.pages.map((group:any, i:any) => (
           <Fragment key={i}>
             {group.camp.map((camp: any) => (
               <Link href={`/campgrounds/${camp.id}`} key={camp.id}>

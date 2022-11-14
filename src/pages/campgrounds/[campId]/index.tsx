@@ -122,7 +122,7 @@ const Show: NextPage = () => {
               {campground.reviews
                 .slice(0)
                 .reverse()
-                .map((review) => (
+                .map((review:any) => (
                   <li
                     className="mt-2 flex h-20 items-center justify-between bg-white px-4"
                     key={review.id}

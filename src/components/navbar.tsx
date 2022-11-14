@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 const NavBar: React.FC = () => {
   const { data: sessionData } = useSession();
   const router = useRouter();
-  
+
   return (
     <header className="relative flex h-20 w-screen flex-wrap items-center justify-between bg-gradient-to-tl from-sky-500 to-indigo-500 font-sans">
       <div className="ml-32 space-x-4">
@@ -18,33 +18,33 @@ const NavBar: React.FC = () => {
         <Link href="/campgrounds">
           <span
             className={`text-md  hover:cursor-pointer  hover:text-gray-400 ${
-              router.route === "/campgrounds" ? "text-gray-400" : "text-white" 
+              router.route === "/campgrounds" ? "text-gray-400" : "text-white"
             }`}
           >
             Campgrounds
           </span>
         </Link>
 
-        <a
-        href="/campgrounds/infinite"
-          className={`text-md  hover:cursor-pointer  hover:text-gray-400 text-white`}
-        >
-          Infinite camps
-        </a>
-
         {sessionData?.user ? (
           <Link href="/campgrounds/new">
             <span
               className={`text-md hover:cursor-pointer hover:text-white ${
                 router.route === "/campgrounds/new"
-                  ? "text-white"
-                  : "text-gray-400"
+                  ? "text-gray-400"
+                  : "text-white"
               }`}
             >
               New
             </span>
           </Link>
         ) : null}
+
+        <a
+          href="/campgrounds/infinite"
+          className={`text-sm  text-white  hover:cursor-pointer hover:text-gray-400`}
+        >
+          &#9888;Infinite camps&#9888;
+        </a>
       </div>
       {sessionData?.user ? (
         <div className="mr-32 space-x-2">
