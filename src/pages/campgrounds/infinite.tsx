@@ -1,24 +1,24 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { ChangeEvent, Fragment, useState } from "react";
+import { ChangeEvent, Fragment, useState,useEffect } from "react";
 import { useRouter } from "next/router";
 import { trpc } from "../../utils/trpc";
 import DropDown from "../../components/dropDown";
 
 
 const Infinite: NextPage = () => {
+  const ctx = trpc.useContext();
   const router = useRouter();
   let skip = 0;
-  const { fetchNextPage, data, isFetchingNextPage, hasNextPage } =
+  const { fetchNextPage, data, isFetchingNextPage, hasNextPage,remove } =
     trpc.campground.testAll.useInfiniteQuery(
       {
         skip: skip,
       },
       {
+       
         refetchOnWindowFocus: false,
         getNextPageParam: (lastPage: any) => {
-      
-          
           lastPage.skip = skip;
           if(lastPage.camp.length ===0){
             return undefined;
@@ -27,7 +27,11 @@ const Infinite: NextPage = () => {
         },
       }
     );
-
+      useEffect(()=>{
+        remove()
+        fetchNextPage()
+      },[])
+    console.log(data?.pages)
 
   const [searchTerm, setSearchTerms] = useState("");
 
