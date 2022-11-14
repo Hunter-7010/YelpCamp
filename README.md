@@ -11,4 +11,4 @@ This is an app bootstrapped according to the [init.tips](https://init.tips) stac
 
 ## How do I deploy this?
 
-### With Vercel
+### With Vercel!
