@@ -4,7 +4,7 @@ import { trpc } from "../../../utils/trpc";
 import { useRef } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
+
 
 const Show: NextPage = () => {
   const { data: sessionData } = useSession();
@@ -66,7 +66,7 @@ const Show: NextPage = () => {
     <div className=" ">
       {campground ? (
         <div className="flex flex-col items-center justify-center ">
-          <Image
+          <img
             src={campground.image}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping

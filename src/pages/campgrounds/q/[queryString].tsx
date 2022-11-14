@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ChangeEvent, useState } from "react";
 import { trpc } from "../../../utils/trpc";
 import { useRouter } from "next/router";
-import Image from "next/image";
+
 
 const SearchCampground:NextPage = ()=> {
     const router = useRouter()
@@ -137,7 +137,7 @@ const SearchCampground:NextPage = ()=> {
                 <Link href={`/campgrounds/${camp._id}`} key={camp._id}>
                   <div className="flex md:w-1/3" key={camp._id}>
                     <div className="m-2 flex w-full flex-col items-center justify-center duration-300 hover:scale-110 hover:bg-slate-400">
-                      <Image
+                      <img
                         src={camp.image}
                         onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping
