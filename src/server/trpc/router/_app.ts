@@ -1,8 +1,5 @@
 // src/server/router/_app.ts
 import { router } from "../trpc";
-
-
-
 import { campgroundRouter } from "./campgrounds";
 import {searchCampground} from "./searchCampground"
 
