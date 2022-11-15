@@ -91,6 +91,7 @@ const param = router.query.by as string
                 <div className="m-2 flex w-full flex-col items-center justify-center duration-300 hover:scale-110 hover:bg-slate-400">
                   <img
                     src={camp.image}
+                    alt="campground picture"
                     onError={({ currentTarget }) => {
                       currentTarget.onerror = null; // prevents looping
                       currentTarget.src =

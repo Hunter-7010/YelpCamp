@@ -138,6 +138,7 @@ const SearchCampground:NextPage = ()=> {
                   <div className="flex md:w-1/3" key={camp._id}>
                     <div className="m-2 flex w-full flex-col items-center justify-center duration-300 hover:scale-110 hover:bg-slate-400">
                       <img
+                      alt="campground picture"
                         src={camp.image}
                         onError={({ currentTarget }) => {
                           currentTarget.onerror = null; // prevents looping

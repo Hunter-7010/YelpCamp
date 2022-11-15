@@ -67,6 +67,7 @@ const Show: NextPage = () => {
       {campground ? (
         <div className="flex flex-col items-center justify-center ">
           <img
+          alt="campground picture"
             src={campground.image}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping
