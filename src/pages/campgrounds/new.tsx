@@ -1,11 +1,20 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import React, { useRef } from "react";
+import React, { useRef,useEffect } from "react";
 import { trpc } from "../../utils/trpc";
+import { useSession } from "next-auth/react";
 
-// undefined,{onSuccess:()=>ctx.invalidate()}
 
 const NewCamp: NextPage = () => {
+  const router =  useRouter()
+  const { data: sessionData } = useSession();
+  useEffect(()=>{
+    if(!sessionData?.user){
+      router.push('/')
+    }
+  },[])
+ 
+
   const nameRef = useRef<HTMLInputElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
   const reviewRef = useRef<HTMLSelectElement>(null);
@@ -19,7 +28,6 @@ const NewCamp: NextPage = () => {
       router.push('/campgrounds')
     }
   })
-  const router =  useRouter()
 
   const onSubmitHandler = (e: React.SyntheticEvent): void => {
     e.preventDefault();

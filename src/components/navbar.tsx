@@ -63,7 +63,7 @@ const NavBar: React.FC = () => {
           className="mr-32 text-lg font-bold text-white hover:text-gray-400"
           onClick={() => signIn("google")}
         >
-          Sign in
+          Sign in with Google
         </button>
       )}
     </header>

@@ -4,11 +4,12 @@ import { ChangeEvent, Fragment, useState,useEffect } from "react";
 import { useRouter } from "next/router";
 import { trpc } from "../../utils/trpc";
 import DropDown from "../../components/dropDown";
-
+import { useSession } from "next-auth/react";
 
 const Infinite: NextPage = () => {
-  const ctx = trpc.useContext();
+  const { data: sessionData } = useSession();
   const router = useRouter();
+
   let skip = 0;
   const { fetchNextPage, data, isFetchingNextPage, hasNextPage,remove } =
     trpc.campground.testAll.useInfiniteQuery(
@@ -31,7 +32,6 @@ const Infinite: NextPage = () => {
         remove()
         fetchNextPage()
       },[])
-    console.log(data?.pages)
 
   const [searchTerm, setSearchTerms] = useState("");
 
@@ -59,6 +59,11 @@ const Infinite: NextPage = () => {
         <div className="mt-2 text-lg text-white ">
           View CampGround form all around the world!
         </div>
+        {
+          !sessionData ? ( <div className="mt-2 text-lg text-white font-bold ">
+          Sign in to Add a Campground
+         </div>):null
+        }
       </div>
       <div className="flex h-12 w-full items-center justify-between bg-white shadow-lg">
         <DropDown />

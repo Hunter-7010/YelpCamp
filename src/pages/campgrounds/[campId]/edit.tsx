@@ -1,10 +1,18 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { trpc } from "../../../utils/trpc";
-import React, { useRef } from "react";
-
+import React, { useRef,useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 const Edit: NextPage = () => {
+  const { data: sessionData } = useSession();
+  
+  const router = useRouter();
+  useEffect(()=>{
+    if(!sessionData?.user){
+      router.push('/')
+    }
+  },[])
   const nameRef = useRef<HTMLInputElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
   const reviewRef = useRef<HTMLSelectElement>(null);
@@ -12,7 +20,7 @@ const Edit: NextPage = () => {
   const imageRef = useRef<HTMLInputElement>(null);
   
 
-  const router = useRouter();
+ 
   const param = router.query.campId as string;
   const ctx = trpc.useContext();
   const {mutate} = trpc.campground.updateCamp.useMutation({

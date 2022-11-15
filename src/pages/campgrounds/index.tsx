@@ -4,10 +4,11 @@ import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { trpc } from "../../utils/trpc";
 import DropDown from "../../components/dropDown";
-
+import { useSession } from "next-auth/react";
 
 const Campgrounds: NextPage = () => {
   const router = useRouter();
+  const { data: sessionData } = useSession();
 
   const { data: campgroundData } = trpc.campground.getAll.useQuery(undefined, {
     refetchOnWindowFocus: false,
@@ -41,6 +42,11 @@ const Campgrounds: NextPage = () => {
         <div className="mt-2 text-lg text-white ">
           View CampGround form all around the world!
         </div>
+        {
+          !sessionData ? ( <div className="mt-2 text-lg text-white font-bold ">
+          Sign in to Add a Campground
+         </div>):null
+        }
       </div>
       <div className="flex h-12 w-full items-center justify-between bg-white shadow-lg">
         <DropDown />

@@ -8,8 +8,8 @@ import { useSession } from "next-auth/react";
 
 const Show: NextPage = () => {
   const { data: sessionData } = useSession();
-
   const router = useRouter();
+
   const param = router.query.campId as string;
   const campground = trpc.campground.getById.useQuery(
     {
