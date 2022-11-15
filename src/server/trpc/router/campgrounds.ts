@@ -17,7 +17,7 @@ export const campgroundRouter = router({
     }),
   getAll: publicProcedure.query(async({ ctx }) => {
     return await ctx.prisma.camp.findMany({
-      take:40,
+      take:15,
       orderBy: [
         {
           createdAt: 'desc',
@@ -31,7 +31,7 @@ export const campgroundRouter = router({
     skip: z.number()
   }))
   .query(async({ input,ctx }) => {
-    const limit = 2;
+    const limit = 3;
     const { cursor } = input;
 
     const camp = await ctx.prisma.camp.findMany({
