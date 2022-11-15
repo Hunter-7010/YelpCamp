@@ -13,8 +13,7 @@ const NewCamp: NextPage = () => {
       router.push('/')
     }
   },[])
- 
-
+  
   const nameRef = useRef<HTMLInputElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
   const reviewRef = useRef<HTMLSelectElement>(null);
