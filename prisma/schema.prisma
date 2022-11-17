@@ -67,7 +67,7 @@ model Reviews{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   comment String
   campId String
-  camp Camp  @relation(fields: [campId],references: [id])
+  camp Camp  @relation(fields: [campId],references: [id],onDelete: Cascade)
   userId    String
   username String
 }
