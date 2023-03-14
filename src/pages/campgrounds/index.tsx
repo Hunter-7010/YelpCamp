@@ -8,9 +8,9 @@ import { useSession } from "next-auth/react";
 
 const Campgrounds: NextPage = () => {
   const router = useRouter();
-  const { data: sessionData } = useSession();
+  const { data: sessionData } = useSession()
 
-  const { data: campgroundData } = trpc.campground.getAll.useQuery(undefined, {
+  const { data: campgroundData,isLoading } = trpc.campground.getAll.useQuery(undefined, {
     refetchOnWindowFocus: false,
   });
 

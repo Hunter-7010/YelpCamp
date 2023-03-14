@@ -21,7 +21,6 @@ const NewCamp: NextPage = () => {
   const imageRef = useRef<HTMLInputElement>(null);
   const ctx = trpc.useContext()
   const {mutate} = trpc.campground.addCamp.useMutation({
-    
     onSuccess:()=>{
       ctx.invalidate()
       router.push('/campgrounds')
