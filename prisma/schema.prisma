@@ -12,7 +12,7 @@ datasource db {
 
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String
+  userId            String  @db.ObjectId
   type              String
   provider          String
   providerAccountId String
@@ -23,16 +23,19 @@ model Account {
   scope             String?
   id_token          String? @db.String
   session_state     String?
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@unique([provider, providerAccountId])
 }
+
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
-  userId       String
+  userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
 model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
@@ -42,33 +45,34 @@ model User {
   accounts      Account[]
   sessions      Session[]
 }
+
 model VerificationToken {
   identifier String   @id @default(auto()) @map("_id") @db.ObjectId
   token      String   @unique
   expires    DateTime
+
   @@unique([identifier, token])
 }
 
 model Camp {
-    id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  address String
-  price Float
-  review Int
-  image String
-  authorId String
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  address    String
+  price      Float
+  review     Int
+  image      String
+  authorId   String
   authorName String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  reviews Reviews[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  reviews    Reviews[]
 }
 
-model Reviews{
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  comment String
-  campId String
-  camp Camp  @relation(fields: [campId],references: [id],onDelete: Cascade)
-  userId    String
+model Reviews {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  comment  String
+  campId   String @db.ObjectId
+  camp     Camp   @relation(fields: [campId], references: [id], onDelete: Cascade)
+  userId   String
   username String
 }
-
