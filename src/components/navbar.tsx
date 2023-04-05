@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
     <header aria-label="Site Header" className="bg-white dark:bg-gray-900">
       <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
         <Link href="/">
-          <a className="block text-teal-600 dark:text-teal-300">
+          <div className="block text-teal-600 dark:text-teal-300">
             <span className="sr-only">Home</span>
             <svg
               className="h-8"
@@ -26,7 +26,7 @@ const NavBar: React.FC = () => {
                 fill="currentColor"
               />
             </svg>
-          </a>
+          </div>
         </Link>
 
         <div className="flex flex-1 items-center justify-end md:justify-between">
@@ -34,44 +34,44 @@ const NavBar: React.FC = () => {
             <ul className="flex items-center gap-6 text-sm">
               <li>
                 <Link href="/campgrounds">
-                  <a
+                  <div
                     className={`text-md transition hover:cursor-pointer hover:text-gray-500/75 dark:hover:text-white/75  ${
                       router.route === "/campgrounds"
-                        ? "text-gray-800 dark:text-white hover:text-current"
+                        ? "text-gray-800 hover:text-current dark:text-white"
                         : "text-gray-500 dark:text-gray-300"
                     }`}
                   >
                     Campgrounds
-                  </a>
+                  </div>
                 </Link>
               </li>
               {sessionData?.user && (
                 <li>
                   <Link href="/campgrounds/new">
-                    <a
+                    <div
                       className={`text-md transition hover:cursor-pointer hover:text-gray-500/75 dark:hover:text-white/75  ${
                         router.route === "/campgrounds/new"
-                          ? "text-gray-800 dark:text-white hover:text-current"
+                          ? "text-gray-800 hover:text-current dark:text-white"
                           : "text-gray-500 dark:text-gray-300"
                       }`}
                     >
                       +Add Camp
-                    </a>
+                    </div>
                   </Link>
                 </li>
               )}
 
               <li>
                 <Link href="/campgrounds/infinite">
-                  <a
+                  <div
                     className={`text-md transition hover:cursor-pointer hover:text-gray-500/75 dark:hover:text-white/75  ${
                       router.route === "/campgrounds/infinite"
-                        ? "text-gray-800 dark:text-white hover:text-current"
+                        ? "text-gray-800 hover:text-current dark:text-white"
                         : "text-gray-500 dark:text-gray-300"
                     }`}
                   >
                     All Campgrounds
-                  </a>
+                  </div>
                 </Link>
               </li>
             </ul>
@@ -80,15 +80,13 @@ const NavBar: React.FC = () => {
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
               {sessionData?.user ? (
-                
-                  <a
-                    title="sign out"
-                    className="cursor-pointer rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
-                    onClick={() => signOut()}
-                  >
-                    Sign out
-                  </a>
-                
+                <a
+                  title="sign out"
+                  className="cursor-pointer rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+                  onClick={() => signOut()}
+                >
+                  Sign out
+                </a>
               ) : (
                 <a
                   className="block cursor-pointer rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 dark:hover:bg-teal-500"
@@ -100,9 +98,52 @@ const NavBar: React.FC = () => {
               )}
             </div>
 
-           <SideBar>
-            <div>hello</div>
-           </SideBar>
+            <SideBar>
+              <div>
+                <Link href="/campgrounds">
+                  <div
+                    className={`flex cursor-pointer items-center space-x-5 truncate rounded-r-full py-4 pl-8 font-semibold  hover:text-white ${
+                      router.route === "/campgrounds"
+                        ? "bg-teal-500 text-white"
+                        : "hover:bg-teal-300"
+                    }`}
+                  >
+                    <p className="max-w-[190px] overflow-hidden truncate">
+                      Campgrounds
+                    </p>
+                  </div>
+                </Link>
+                {sessionData?.user && (
+                  <Link href="/campgrounds/new">
+                    <div
+                      className={`flex cursor-pointer items-center space-x-5 truncate rounded-r-full py-4 pl-8 font-semibold  hover:text-white ${
+                        router.route === "/campgrounds/new"
+                          ? "bg-teal-500 text-white"
+                          : "hover:bg-teal-300"
+                      }`}
+                    >
+                      <p className="max-w-[190px] overflow-hidden truncate">
+                        +Add Camp
+                      </p>
+                    </div>
+                  </Link>
+                )}
+
+                <Link href="/campgrounds/infinite">
+                  <div
+                    className={`flex cursor-pointer items-center space-x-5 truncate rounded-r-full py-4 pl-8 font-semibold  hover:text-white ${
+                      router.route === "/campgrounds/infinite"
+                        ? "bg-teal-500 text-white"
+                        : "hover:bg-teal-300"
+                    }`}
+                  >
+                    <p className="max-w-[190px] overflow-hidden truncate">
+                      All Campgrounds
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            </SideBar>
           </div>
         </div>
       </div>

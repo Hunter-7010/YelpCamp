@@ -98,9 +98,9 @@ const Show: NextPage = () => {
                 Delete
               </button>
               <Link href={`/campgrounds/${param}/edit`}>
-                <a className="mt-2 flex h-10 w-60 items-center justify-center rounded-2xl bg-sky-500 duration-300 hover:scale-110">
+                <div className="mt-2 flex h-10 w-60 items-center justify-center rounded-2xl bg-sky-500 duration-300 hover:scale-110">
                   Update CampGround
-                </a>
+                </div>
               </Link>
             </>
           ) : null}

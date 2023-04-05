@@ -17,7 +17,6 @@ const Infinite: NextPage = () => {
         skip: skip,
       },
       {
-       
         refetchOnWindowFocus: false,
         getNextPageParam: (lastPage: any) => {
           lastPage.skip = skip;
